@@ -4,7 +4,7 @@
 from flask import (Blueprint, render_template, current_app, request,
                    flash, url_for, redirect, session, abort, jsonify)
                    
-from flask.ext.login import login_required, login_user, current_user, logout_user, confirm_login, login_fresh
+from flask_login import login_required, login_user, current_user, logout_user, confirm_login, login_fresh
 from ..common import Response
 from ..extensions import db
 
@@ -20,7 +20,7 @@ def verify_auth():
 @auth.route('/login', methods=['POST'])
 def login():
    """ POST only operation. check login form. Log user in """
-   if current_user.is_authenticated():
+   if current_user.is_authenticated:
       return Response.make_success_resp(msg="You are already logged in")
       
    form = LoginForm()
@@ -49,7 +49,7 @@ def logout():
 
 @auth.route('/signup', methods=['POST'])
 def signup():
-   if current_user.is_authenticated():
+   if current_user.is_authenticated:
       return make_success_resp("You're already signed up")
 
    form = SignupForm()
